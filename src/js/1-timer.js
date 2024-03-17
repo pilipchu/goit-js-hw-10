@@ -26,7 +26,6 @@ const options = {
                 message: 'Please choose a date in the future',
                 maxWidth: 400,
                 position: "topRight",
-                iconUrl: './img/close_black_24dp.svg'
             });
             clearInterval(intervalId)
             textDays.textContent = '00'
