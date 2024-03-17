@@ -26,6 +26,7 @@ const options = {
                 message: 'Please choose a date in the future',
                 maxWidth: 400,
                 position: "topRight",
+               iconUrl: '../img/cross.svg'
             });
             clearInterval(intervalId)
             textDays.textContent = '00'
