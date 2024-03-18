@@ -5,27 +5,29 @@ const form = document.querySelector('.form')
 const radio = document.querySelector('fieldset')
 
 let text
-let delay
-form.addEventListener('submit', foo)
-radio.addEventListener("change", foooo)
 
-function foo(event) {
+form.addEventListener('submit', handleSubmit)
+radio.addEventListener("change", handleRadioChange)
+
+function handleSubmit(event,) {
     event.preventDefault()
-    delay = form.elements.delay.value
+    const delay = form.elements.delay.value
     const prom = creatPromis(delay, text)
     prom.then(success).catch(notSuccess)
     form.reset()
+    return delay
 }
 
-function foooo (event){
+function handleRadioChange (event){
     const b = event.target
-     text = b.value
+    text = b.value
     return text
 }
 
+
 function notSuccess(delay) {
     iziToast.error({
-            icon:'',
+        icon:'null',
             message: `❌ Rejected promise in ${delay}ms`,
             position: "topCenter",
         })
@@ -33,7 +35,7 @@ function notSuccess(delay) {
 
 function success(delay) {
     iziToast.success({
-          icon:'',
+        icon: 'null',
           message: `✅ Fulfilled promise in ${delay}ms`,
           position: "topCenter",
 })

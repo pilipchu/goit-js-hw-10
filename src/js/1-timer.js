@@ -20,31 +20,40 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
     onClose(selectedDates) {
-        if ((selectedDates[0] - options.defaultDate) < 0) {
+        if (selectedDates[0]<options.defaultDate) {
             iziToast.error({
                 title: 'Error',
                 message: 'Please choose a date in the future',
                 maxWidth: 400,
                 position: "topRight",
-               iconUrl: '../img/cross.svg'
             });
-            clearInterval(intervalId)
-            textDays.textContent = '00'
-            textHours.textContent = '00'
-            textMinutes.textContent = '00'
-            textSeconds.textContent = '00'
-            
+             clear()
         } else {
-            userSelectedDate = selectedDates[0] - new Date()
+            clear()
+            userSelectedDate = selectedDates[0]
             button.disabled = false
         }
     },
 };
 
+function clear() {
+    clearInterval(intervalId)
+    textDays.textContent = '00'
+    textHours.textContent = '00'
+ textMinutes.textContent = '00'
+ textSeconds.textContent = '00'
+}
+
+function getDate() {
+    const nowDate = userSelectedDate - new Date
+    if(nowDate<0)return
+    convertMs(nowDate)
+    console.log(nowDate)
+}
+
 flatpickr("#datetime-picker", options);
 
 function convertMs(ms) {
-    if(userSelectedDate < 0) return
         // Number of milliseconds per unit of time
         const second = 1000;
         const minute = second * 60;
@@ -64,9 +73,7 @@ function convertMs(ms) {
 button.addEventListener('click', () => {
          button.disabled = true
    intervalId = setInterval(() => {
-       convertMs(userSelectedDate)
-       userSelectedDate -= 1000
-       if (userSelectedDate < 0) clearInterval(intervalId)
+       getDate()
        }, 1000)}
 )
 
